@@ -6,7 +6,7 @@
 
 #define BUF_SIZE 1024
 
-void getpidbyName(char* task_name)
+void getpidbyname(char* task_name)
 {
 	DIR *dir;
 	struct dirent *ptr;
@@ -25,9 +25,8 @@ void getpidbyName(char* task_name)
 
 			snprintf(filepath, 50, "/proc/%s/status", ptr->d_name);
 			fp = fopen(filepath, "r");
-			if (NULL != fp)
-			{
-				if( fgets(buf, BUF_SIZE-1, fp)== NULL ){
+			if (NULL != fp) {
+				if ( fgets(buf, BUF_SIZE-1, fp)== NULL ) {
 					fclose(fp);
 					continue;
 				}
@@ -37,19 +36,19 @@ void getpidbyName(char* task_name)
 					printf("PID:  %s\n", ptr->d_name);
 				fclose(fp);
 			}
-
 		}
 		closedir(dir);
 	}
 }
 
-void getnamebypid(pid_t pid, char *task_name) {
+void getnamebypid(pid_t pid, char *task_name)
+{
 	char proc_pid_path[BUF_SIZE];
 	char buf[BUF_SIZE];
 
 	sprintf(proc_pid_path, "/proc/%d/status", pid);
 	FILE* fp = fopen(proc_pid_path, "r");
-	if(NULL != fp){
+	if (NULL != fp){
 		if( fgets(buf, BUF_SIZE-1, fp)== NULL ){
 			fclose(fp);
 		}
@@ -72,6 +71,6 @@ void main(int argc, char** argv)
 	   getPidByName(task_name);
 	 */
 	printf("task name is %s\n", task_name);
-	getpidbyName(task_name);
+	getpidbyname(task_name);
 	sleep(1);
 }
